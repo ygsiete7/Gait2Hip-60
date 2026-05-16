@@ -210,17 +210,36 @@ Users may choose either the original-unit targets or body-mass-normalized target
 
 ---
 
-## Requirements
-This repository contains Python scripts for loading the NPZ files and running the baseline models. The main dependencies include:
+## Environment requirements
 
-```text
-numpy
-pandas
-torch
-scikit-learn
-mamba-ssm
-```
->Note: `mamba-ssm` is required only for running the Mamba baseline.
+The code was developed and tested with the following environment:
+
+- Python 3.10
+- PyTorch 2.0 or later
+- NumPy
+- Pandas
+- Scikit-learn
+- Matplotlib
+- tqdm
+
+The example scripts for loading the `.npz` files only require:
+
+- Python
+- NumPy
+- Pandas
+
+The LSTM and Transformer training scripts additionally require:
+
+- PyTorch
+- Scikit-learn
+- tqdm
+
+The Mamba training script requires additional Mamba-related dependencies, such as:
+
+- mamba-ssm
+- causal-conv1d
+
+Please note that the installation of Mamba-related packages may depend on the local CUDA, PyTorch, and compiler versions. Users are encouraged to install these packages according to their own computing environment.
 
 ---
 
@@ -335,7 +354,7 @@ Gait2Hip-60: A Multi-Cadence Gait Dynamics Dataset
 Zenodo record:
 
 ```text
-[Zenodo DOI or URL]
+https://doi.org/10.5281/zenodo.20175768
 ```
 
 Publication:
