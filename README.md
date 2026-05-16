@@ -6,10 +6,10 @@
 
 This GitHub repository provides example scripts and benchmark code for using the released NPZ files in machine learning and deep learning applications.
 
-The full dataset is available on Zenodo.
+The full dataset is available on **Zenodo**.
 
 ```text
-Zenodo: https://doi.org/10.5281/zenodo.20175768
+https://doi.org/10.5281/zenodo.20175768
 ```
 > **Important note**  
 > The muscle forces and joint moments provided in this dataset are derived from an OpenSim musculoskeletal modeling pipeline. They should be interpreted as simulation-based estimates rather than direct in vivo measurements.
@@ -23,7 +23,7 @@ Gait2Hip-60/
 ├── README.md
 ├── LICENSE
 ├── requirements.txt
-├── CITATION.cff
+├── .gitignore
 │
 ├── data/
 │   └── README.md
@@ -33,18 +33,26 @@ Gait2Hip-60/
 │   └── load_Gait2Hip_JM60.py
 │
 ├── muscle_force_prediction/
-│   ├── LSTM.py
-│   ├── Mamba.py
-│   ├── Transformer.py
-│   └── checkpoints/
-│       └── README.md
+│   ├── train_lstm.py
+│   ├── train_mamba.py
+│   ├── train_transformer.py
+│   ├── predict.py
+│   ├── trained_models/
+│   │   ├── lstm_mf60.pt
+│   │   ├── mamba_mf60.pt
+│   │   └── transformer_mf60.pt
+│   └── README.md
 │
 └── joint_moment_prediction/
-    ├── LSTM.py
-    ├── Mamba.py
-    ├── Transformer.py
-    └── checkpoints/
-        └── README.md
+    ├── train_lstm.py
+    ├── train_mamba.py
+    ├── train_transformer.py
+    ├── predict.py
+    ├── trained_models/
+    │   ├── lstm_jm60.pt
+    │   ├── mamba_jm60.pt
+    │   └── transformer_jm60.pt
+    └── README.md
 ```
 
 ---
