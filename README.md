@@ -1,6 +1,6 @@
-# Gait2Hip-60: A Multi-Cadence Gait Dynamics Dataset
+# Gait2Hip-60
 
-**Gait2Hip-60** is a multi-cadence gait dynamics dataset from 60 healthy subjects. The dataset provides trial-level OpenSim-derived gait biomechanics data, including inverse kinematics (IK), inverse dynamics (ID), and static-optimization-derived muscle force outputs, together with NPZ files for machine learning and deep learning applications.
+Gait2Hip-60 is a multi-cadence gait dynamics dataset from 60 healthy subjects. The dataset provides trial-level OpenSim-derived gait biomechanics data, including inverse kinematics (IK), inverse dynamics (ID), and static-optimization-derived muscle force outputs, together with NPZ files for machine learning and deep learning applications.
 
 ![image](images/image_exp.png)
 ![image](images/marker_opensim.png)
