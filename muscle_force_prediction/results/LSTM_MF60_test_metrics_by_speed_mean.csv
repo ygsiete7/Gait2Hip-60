@@ -1,0 +1,5 @@
+speed,n_trials,n_subjects,subject_mean_RMSE,subject_mean_MAE,subject_mean_R2
+overall,144,12,1.5136,0.6594,0.7750
+fast,48,12,1.6584,0.7328,0.7651
+med,48,12,1.4700,0.6433,0.7822
+slow,48,12,1.3727,0.6022,0.7816
