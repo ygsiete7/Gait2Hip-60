@@ -17,47 +17,6 @@ https://doi.org/10.5281/zenodo.20175768
 
 ---
 
-## Repository structure
-
-```text
-Gait2Hip-60/
-├── README.md
-├── LICENSE
-├── requirements.txt
-├── .gitignore
-│
-├── data/
-│   └── README.md
-│
-├── examples/
-│   ├── load_Gait2Hip_MF60.py
-│   └── load_Gait2Hip_JM60.py
-│
-├── muscle_force_prediction/
-│   ├── train_lstm.py
-│   ├── train_mamba.py
-│   ├── train_transformer.py
-│   ├── predict.py
-│   ├── trained_models/
-│   │   ├── lstm_mf60.pt
-│   │   ├── mamba_mf60.pt
-│   │   └── transformer_mf60.pt
-│   └── README.md
-│
-└── joint_moment_prediction/
-    ├── train_lstm.py
-    ├── train_mamba.py
-    ├── train_transformer.py
-    ├── predict.py
-    ├── trained_models/
-    │   ├── lstm_jm60.pt
-    │   ├── mamba_jm60.pt
-    │   └── transformer_jm60.pt
-    └── README.md
-```
-
----
-
 ## Data availability
 The Zenodo release includes:
 
@@ -77,6 +36,45 @@ data/
 ├── Gait2Hip_MF60.npz
 └── Gait2Hip_JM60.npz
 ```
+---
+## Repository structure
+
+```text
+Gait2Hip-60/
+├── README.md
+├── LICENSE
+├── requirements.txt
+├── .gitignore
+│
+├── data/
+│   └── README.md
+│
+├── examples/
+│   ├── load_Gait2Hip_MF60.py
+│   └── load_Gait2Hip_JM60.py
+│
+├── muscle_force_prediction/
+│   ├── LSTM_MF60.py
+│   ├── Mamba_MF60.py
+│   ├── Transformer_MF60.py
+│   ├── predict.py
+│   ├── trained_models/
+│   │   ├── LSTM_MF60.pt
+│   │   ├── Mamba_MF60.pt
+│   │   └── Transformer_MF60.pt
+│   └── README.md
+│
+└── joint_moment_prediction/
+    ├── LSTM_JM60.py
+    ├── Mamba_JM60.py
+    ├── Transformer_JM60.py
+    ├── predict.py
+    ├── trained_models/
+    │   ├── LSTM_JM60.pt
+    │   ├── Mamba_JM60.pt
+    │   └── Transformer_JM60.pt
+    └── README.md
+```
 
 ---
 
@@ -92,17 +90,7 @@ Walking trials were performed under three metronome-paced cadence conditions:
 | `med` | 115 steps/min |
 | `fast` | 135 steps/min |
 
-Each subject was expected to have up to four repeated trials under each of the three cadence conditions, resulting in a maximum of 12 trials per subject. After quality-control screening, trials that did not meet the predefined quality-control criteria were excluded.
-
-As a result, 57 subjects retained 12 valid trials, whereas three subjects had fewer valid trials:
-
-| Subject | Number of valid trials |
-|---|---:|
-| `H17` | 11 |
-| `H47` | 10 |
-| `H52` | 8 |
-
-The public NPZ files contain 713 valid samples after quality-control and file consistency checks.
+Each subject was expected to have up to four repeated trials under each cadence condition. After quality-control and file consistency checks, the public NPZ files contain **713 valid gait trials**.
 
 ---
 
@@ -215,31 +203,19 @@ Users may choose either the original-unit targets or body-mass-normalized target
 The code was developed and tested with the following environment:
 
 - Python 3.10
-- PyTorch 2.0 or later
+- PyTorch
 - NumPy
 - Pandas
 - Scikit-learn
 - Matplotlib
 - tqdm
 
-The example scripts for loading the `.npz` files only require:
-
-- Python
-- NumPy
-- Pandas
-
-The LSTM and Transformer training scripts additionally require:
-
-- PyTorch
-- Scikit-learn
-- tqdm
-
-The Mamba training script requires additional Mamba-related dependencies, such as:
+The Mamba baseline additionally requires:
 
 - mamba-ssm
 - causal-conv1d
 
-Please note that the installation of Mamba-related packages may depend on the local CUDA, PyTorch, and compiler versions. Users are encouraged to install these packages according to their own computing environment.
+Mamba-related package installation may depend on the local CUDA, PyTorch, and compiler versions.
 
 ---
 
@@ -257,64 +233,80 @@ python examples/load_Gait2Hip_MF60.py
 python examples/load_Gait2Hip_JM60.py
 ```
 
-The loading scripts print the available keys, array shapes, input variables, output variables, condition labels, and a preview of the first trial.
+The example scripts print the available keys, array shapes, input variables, output variables, condition labels, and a preview of the first trial.
 
+---
+
+## Model training and prediction
+
+Detailed instructions are provided in the task-specific README files:
+```text
+muscle_force_prediction/README.md
+joint_moment_prediction/README.md
+```
+
+### Muscle force prediction
+
+Train the baseline models:
+```bash
+python muscle_force_prediction/LSTM_MF60.py
+python muscle_force_prediction/Mamba_MF60.py
+python muscle_force_prediction/Transformer_MF60.py
+```
+
+Run prediction using the trained Transformer model:
+```bash
+python muscle_force_prediction/predict.py \
+    --model_path muscle_force_prediction/trained_models/Transformer_MF60.pt
+```
+To also save predictions in the original unit `N`, use:
+```bash
+python muscle_force_prediction/predict.py \
+    --model_path muscle_force_prediction/trained_models/Transformer_MF60.pt \
+    --save_raw_unit
+```
+
+### Joint moment prediction
+
+Train the baseline models:
+```text
+python joint_moment_prediction/LSTM_JM60.py
+python joint_moment_prediction/Mamba_JM60.py
+python joint_moment_prediction/Transformer_JM60.py
+```
+Run prediction using the trained Transformer model:
+```bash
+python joint_moment_prediction/predict.py \
+    --model_path joint_moment_prediction/trained_models/Transformer_JM60.pt
+```
+To also save predictions in the original unit `N·m`, use:
+```bash
+python joint_moment_prediction/predict.py \
+    --model_path joint_moment_prediction/trained_models/Transformer_JM60.pt \
+    --save_raw_unit
+```
+Prediction results are saved as CSV files under:
+```text
+muscle_force_prediction/predictions/
+joint_moment_prediction/predictions/
+```
 ---
 
 ## Benchmark protocol
 
-The provided baseline scripts follow the same general protocol:
-
-1. Load the corresponding NPZ file.
-2. Normalize the input kinematic variables using statistics computed from the training data.
-3. Normalize target outputs by body mass:
-   - `Gait2Hip_MF60.npz`: muscle forces are converted from `N` to `N/kg`;
-   - `Gait2Hip_JM60.npz`: joint moments are converted from `N·m` to `N·m/kg`.
-4. Split subjects into a training/validation pool and an independent test set.
-5. Use 5-fold GroupKFold cross-validation on the training/validation pool for epoch selection.
-6. Train the final model on the full training/validation pool.
-7. Evaluate the final model on the independent subject-holdout test set.
-8. Report RMSE, MAE, and R², including subject-level mean metrics and cadence-specific metrics.
-
+The provided baseline scripts use subject-level splitting. A subject-holdout test set is first separated, and 5-fold GroupKFold cross-validation is performed on the remaining training/validation pool for epoch selection. The final model is then trained on the full pool and evaluated on the independent test subjects.
 The implemented baseline models are:
 
 - LSTM;
 - Transformer;
 - Mamba.
 
----
-
-## Model training
-
-Before running the scripts, check and modify the dataset path and output directory in each script if needed.
-
-### Muscle force prediction
-
-```bash
-cd muscle_force_prediction
-
-python LSTM.py
-python Transformer.py
-python Mamba.py
-```
-
-### Joint moment prediction
-
-```bash
-cd joint_moment_prediction
-
-python LSTM.py
-python Transformer.py
-python Mamba.py
-```
-
-Each script saves:
-
-- 5-fold cross-validation metrics;
-- final test metrics;
-- cadence-specific test metrics;
-- final model checkpoint.
-
+The reported metrics include:
+- RMSE;
+- MAE;
+- R²;
+- subject-level mean metrics;
+- cadence-specific test metrics.
 ---
 
 ## Reference results
@@ -322,7 +314,7 @@ Each script saves:
 The full benchmark results are reported in the associated manuscript.
 
 ```text
-[Paper DOI or arXiv URL, if available]
+To be added when available.
 ```
 ---
 
@@ -338,8 +330,6 @@ Gait2Hip-60 can be used for research on:
 - deep learning model development and evaluation.
 
 ---
-
-
 
 ## Citation
 
@@ -360,7 +350,7 @@ https://doi.org/10.5281/zenodo.20175768
 Publication:
 
 ```text
-[Paper DOI or arXiv URL, if available]
+To be added when available.
 ```
 
 ---
