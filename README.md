@@ -2,7 +2,8 @@
 
 **Gait2Hip-60** is a multi-cadence gait dynamics dataset from 60 healthy subjects. The dataset provides trial-level OpenSim-derived gait biomechanics data, including inverse kinematics (IK), inverse dynamics (ID), and static-optimization-derived muscle force outputs, together with NPZ files for machine learning and deep learning applications.
 
-![image](workflow.png)
+![image](images/image_exp.png)
+![image](images/image_opensim.png)
 
 This GitHub repository provides example scripts and benchmark code for using the released NPZ files in machine learning and deep learning applications.
 
