@@ -7,6 +7,11 @@ Gait2Hip-60 is a multi-cadence gait dynamics dataset from 60 healthy subjects. T
 
 This GitHub repository provides example scripts and benchmark code for using the released NPZ files in machine learning and deep learning applications.
 
+The relevant paper is submitted on **Arxiv**.
+```text
+https://doi.org/10.48550/arXiv.2605.30374
+```
+
 The full dataset is available on **Zenodo**.
 
 ```text
@@ -350,7 +355,7 @@ https://doi.org/10.5281/zenodo.20175768
 Publication:
 
 ```text
-To be added when available.
+https://doi.org/10.48550/arXiv.2605.30374
 ```
 
 ---
